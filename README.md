@@ -5,7 +5,7 @@ Achievement unlock sound randomizer for RetroArch and PCSX2 (OGG Vorbis)
 * Windows
 * A bunch of your favorite achievement unlock sounds as OGG Vorbis (.OGG) files
 * [Python](https://python.org/)
-* [pydub](https://pypi.org/project/pydub/) (if using PCSX2)
+* [pydub](https://pypi.org/project/pydub/)
 * [ffmpeg](https://ffmpeg.org/) (if using PCSX2)
 
 # Installation
