@@ -30,4 +30,4 @@ Upon running, you will be asked to choose an option (if PCSX2 used):
 * [2] PCSX2
 * [0] Exit Launcher
 
-If PCSX2 is not used, the program will randomly choose an unlock sound and overwrite it in the target application option.
+If PCSX2 is not used, this menu will be skipped and the program will randomly choose an unlock sound and overwrite it in the target application option then launch it for you.
