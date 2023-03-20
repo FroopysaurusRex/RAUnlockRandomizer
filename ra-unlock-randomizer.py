@@ -10,7 +10,7 @@ import shutil
 print("==========================================")
 print("RetroAchievements Unlock Sound Randomizer")
 print("Author: Froopy")
-print("Version: 1.0.0")
+print("Version: 1.0.1")
 print("==========================================")
 #--
 #-- Attempt to load configuration file or make one if one is not present
@@ -26,7 +26,7 @@ try:
     config = {
       "sounds_path" : "",
       "retroarch_path" : "",
-      "pcsx2_path" : "",
+      "pcsx2_exe_path" : "",
       "ffmpeg_path" : ""
     }
     config = json.dumps(config)
@@ -43,7 +43,7 @@ try:
   print("Configuration file loaded")
   print(f"Sounds Path: {config['sounds_path']}")
   print(f"RetroArch Path: {config['retroarch_path']}")
-  print(f"PCSX2 Path: {config['pcsx2_path']}")
+  print(f"PCSX2 Executable Path: {config['pcsx2_exe_path']}")
   print(f"ffmpeg Path: {config['ffmpeg_path']}")
   print("==========================================")
 except:
@@ -61,7 +61,7 @@ if config["sounds_path"] == "" or config["retroarch_path"] == "":
 #-- Print startup screen if necessary
 #--
 runchoice = "retroarch"
-if config["pcsx2_path"] != "":
+if config["pcsx2_exe_path"] != "":
   print("Unlock Randomizer Launch Options")
   print("------------------------------------------")
   print("[1] - RetroArch")
@@ -93,11 +93,11 @@ try:
       print('Sound error: ffmpeg path was not provided in configuration and is required for PCSX2')
       time.sleep(3)
       sys.exit()
-    os.remove(os.path.join(config["pcsx2_path"], "resources", "sounds", "achievements", "unlock.wav"))
+    os.remove(os.path.join(os.path.dirname(config["pcsx2_exe_path"]), "resources", "sounds", "achievements", "unlock.wav"))
     AudioSegment.converter = os.path.join(config["ffmpeg_path"], "ffmpeg.exe")
     AudioSegment.probe = os.path.join(config["ffmpeg_path"], "ffprobe.exe")
     x = AudioSegment.from_file(targetsoundfile, format='ogg')
-    x.export(os.path.join(config["pcsx2_path"], "resources", "sounds", "achievements", "unlock.wav"), format="wav")
+    x.export(os.path.join(os.path.dirname(config["pcsx2_exe_path"]), "resources", "sounds", "achievements", "unlock.wav"), format="wav")
   print(f"Random target chosen: {os.path.basename(targetsoundfile)}")
   print("Transferring random choice to target option application")
 except:
@@ -114,7 +114,7 @@ try:
   if runchoice == "retroarch":
     os.startfile(os.path.join(config['retroarch_path'], "retroarch.exe"))
   elif runchoice == "pcsx2":
-    os.startfile(os.path.join(config['pcsx2_path'], "pcsx2-qtx64-avx2.exe"))
+    os.startfile(config['pcsx2_exe_path'])
 except:
   print('Launch error: Unable to access target option application')
   print(traceback.format_exc())
