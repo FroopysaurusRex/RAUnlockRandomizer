@@ -9,7 +9,7 @@ Achievement unlock sound randomizer for RetroArch and PCSX2 (OGG Vorbis)
 * [ffmpeg](https://ffmpeg.org/) (if using PCSX2)
 
 # Installation
-On first launch, it will create a configuration file where you need to populate your path variables:
+On first launch, this will create a configuration file in the same directory (config.cfg) where you need to populate your path variables:
 
 * sounds_path
 * retroarch_path
