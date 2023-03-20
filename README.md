@@ -18,7 +18,7 @@ On first launch, this will create a configuration file in the same directory (co
 
 If you provide a PCSX2 path, it will show you two options to pick.  If you only provide a RetroArch path, it will simply choose a sound and run RetroArch
 
-For the paths, you need to specify backslashes with two slashes, like: C:\\Emulators\\RetroArch
+For the paths, you need to specify backslashes with two slashes, like: C:\\\\Emulators\\\\RetroArch
 
 The PCSX2 option will automatically convert the OGG file to a WAV format file for PCSX2 to use.
 
