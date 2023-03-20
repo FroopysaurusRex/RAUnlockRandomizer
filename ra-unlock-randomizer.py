@@ -10,7 +10,7 @@ import shutil
 print("==========================================")
 print("RetroAchievements Unlock Sound Randomizer")
 print("Author: Froopy")
-print("Version: 1.0.2")
+print("Version: 1.0.3")
 print("==========================================")
 #--
 #-- Attempt to load configuration file or make one if one is not present
@@ -121,7 +121,8 @@ try:
       print('Sound error: ffmpeg path was not provided in configuration and is required for PCSX2')
       time.sleep(3)
       sys.exit()
-    os.remove(os.path.join(os.path.dirname(config["pcsx2_exe_path"]), "resources", "sounds", "achievements", "unlock.wav"))
+    if os.path.isfile(os.path.join(os.path.dirname(config["pcsx2_exe_path"]), "resources", "sounds", "achievements", "unlock.wav")) == True:
+      os.remove(os.path.join(os.path.dirname(config["pcsx2_exe_path"]), "resources", "sounds", "achievements", "unlock.wav"))
     AudioSegment.converter = os.path.join(config["ffmpeg_path"], "ffmpeg.exe")
     AudioSegment.probe = os.path.join(config["ffmpeg_path"], "ffprobe.exe")
     x = AudioSegment.from_file(targetsoundfile, format='ogg')
@@ -131,7 +132,8 @@ try:
       print('Sound error: ffmpeg path was not provided in configuration and is required for bizhawk')
       time.sleep(3)
       sys.exit()
-    os.remove(os.path.join(config["bizhawk_path"], "overlay", "unlock.wav"))
+    if os.path.isfile(os.path.join(config["bizhawk_path"], "overlay", "unlock.wav")) == True:
+      os.remove(os.path.join(config["bizhawk_path"], "overlay", "unlock.wav"))
     AudioSegment.converter = os.path.join(config["ffmpeg_path"], "ffmpeg.exe")
     AudioSegment.probe = os.path.join(config["ffmpeg_path"], "ffprobe.exe")
     x = AudioSegment.from_file(targetsoundfile, format='ogg')
