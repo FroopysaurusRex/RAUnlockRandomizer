@@ -53,17 +53,24 @@ except:
   print(traceback.format_exc())
   time.sleep(3)
   sys.exit()
-if config["sounds_path"] == "" or config["retroarch_path"] == "":
-  print('Startup error: Configuration file has blank settings.  sounds_path and retroarch_path are required to run (config.cfg).')
-  print('NOTE: When typing the path on Windows in your configuration file, use double slashes instead of single')
-  print('Example: C:\\Media\\Emulators\\RetroArch')
-  time.sleep(3)
-  sys.exit()
 #--
 #-- Print startup screen if necessary
 #--
 runchoice = "retroarch"
-if config["pcsx2_exe_path"] != "" or config["bizhawk_path"] != "":
+options = 0
+if config['retroarch_path'] != "":
+  options += 1
+if config['pcsx2_exe_path'] != "":
+  options += 1
+if config['bizhawk_path'] != "":
+  options += 1
+if config["sounds_path"] == "" or options == 0:
+  print('Startup error: Configuration file has blank settings.  sounds_path and at least one emulator path are required to run (config.cfg).')
+  print('NOTE: When typing the path on Windows in your configuration file, use double slashes instead of single')
+  print('Example: C:\\Media\\Emulators\\RetroArch')
+  time.sleep(3)
+  sys.exit()
+if options > 0:
   print("Unlock Randomizer Launch Options")
   print("------------------------------------------")
   print("[1] - RetroArch")
@@ -78,6 +85,12 @@ if config["pcsx2_exe_path"] != "" or config["bizhawk_path"] != "":
     print('Parameter error: Option number must be 0, 1, 2 or 3.')
     time.sleep(3)
     sys.exit()
+  if userchoice == "1":
+    if config["retroarch_path"] == "":
+      print('Parameter error: RetroArch path is blank')
+      time.sleep(3)
+      sys.exit()
+    runchoice = "retroarch"
   if userchoice == "2":
     if config["pcsx2_exe_path"] == "":
       print('Parameter error: PCSX2 executable path is blank')
