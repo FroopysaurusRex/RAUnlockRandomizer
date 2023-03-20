@@ -12,22 +12,24 @@ Achievement unlock sound randomizer for RetroArch and PCSX2 (OGG Vorbis)
 On first launch, this will create a configuration file in the same directory (config.cfg) where you need to populate your path variables:
 
 * sounds_path (Sound File Directory)
-* retroarch_path (RetroArch Directory)
+* retroarch_path (RetroArch Directory) (optional)
 * pcsx2_exe_path (PCSX2 Executable Path) (optional)
+* bizhawk_path (bizhawk Directory) (optional)
 * ffmpeg_path (ffmpeg Directory) (optional)
 
-If you provide a PCSX2 path, it will show you two options to pick.  If you only provide a RetroArch path, it will simply choose a sound and run RetroArch
+At least one of retroarch_path, pcsx2_exe_path or bizhawk_path must be populated along with sounds_path.  If pcsx2_exe_path or bizhawk_path are used, ffmpeg_path must be populated.
 
 For the paths, you need to specify backslashes with two slashes, like: C:\\\\Emulators\\\\RetroArch
 
-The PCSX2 option will automatically convert the OGG file to a WAV format file for PCSX2 to use.
+The PCSX2 and bizhawk option will automatically convert the OGG file to a WAV format file for it to use.
 
 # Running
 
-Upon running, you will be asked to choose an option (if PCSX2 used):
+Upon running, you will be asked to choose an option (if multiple option paths were given in configuration):
 
 * [1] RetroArch
 * [2] PCSX2
+* [3] bizhawk
 * [0] Exit Launcher
 
-If PCSX2 is not used, this menu will be skipped and the program will randomly choose an unlock sound and overwrite it in the target application option then launch it for you.
+If only one option was given in configuration, this menu will be skipped and the program will randomly choose an unlock sound and overwrite it in the target application option then launch it for you.
