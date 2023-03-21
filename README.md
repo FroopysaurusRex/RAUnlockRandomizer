@@ -1,5 +1,5 @@
 # RAUnlockRandomizer
-Achievement unlock sound randomizer for RetroArch and PCSX2 (OGG Vorbis)
+Achievement unlock sound randomizer for RetroArch, PCSX2, bizhawk and Duckstation (OGG Vorbis)
 
 # Prerequisites
 * Windows
@@ -15,13 +15,14 @@ On first launch, this will create a configuration file in the same directory (co
 * retroarch_path (RetroArch Directory) (optional)
 * pcsx2_exe_path (PCSX2 Executable Path) (optional)
 * bizhawk_path (bizhawk Directory) (optional)
+* duckstation_exe_path (Duckstation Executable Directory) (optional)
 * ffmpeg_path (ffmpeg Directory) (optional)
 
-At least one of retroarch_path, pcsx2_exe_path or bizhawk_path must be populated along with sounds_path.  If pcsx2_exe_path or bizhawk_path are used, ffmpeg_path must be populated.
+At least one of retroarch_path, pcsx2_exe_path, duckstation_exe_path or bizhawk_path must be populated along with sounds_path.  If pcsx2_exe_path, duckstation_exe_path or bizhawk_path are used, ffmpeg_path must be populated.
 
 For the paths, you need to specify backslashes with two slashes, like: C:\\\\Emulators\\\\RetroArch
 
-The PCSX2 and bizhawk option will automatically convert the OGG file to a WAV format file for it to use.
+The PCSX2, Duckstation and bizhawk option will automatically convert the OGG file to a WAV format file for it to use.
 
 # Running
 
@@ -30,6 +31,7 @@ Upon running, you will be asked to choose an option (if multiple option paths we
 * [1] RetroArch
 * [2] PCSX2
 * [3] bizhawk
+* [4] Duckstation
 * [0] Exit Launcher
 
 If only one option was given in configuration, this menu will be skipped and the program will randomly choose an unlock sound and overwrite it in the target application option then launch it for you.
