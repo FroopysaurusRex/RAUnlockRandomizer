@@ -10,7 +10,7 @@ import shutil
 print("==========================================")
 print("RetroAchievements Unlock Sound Randomizer")
 print("Author: Froopy")
-print("Version: 1.0.3")
+print("Version: 1.0.4")
 print("==========================================")
 #--
 #-- Attempt to load configuration file or make one if one is not present
@@ -28,6 +28,7 @@ try:
       "retroarch_path" : "",
       "pcsx2_exe_path" : "",
       "bizhawk_path" : "",
+      "duckstation_exe_path" : "",
       "ffmpeg_path" : ""
     }
     config = json.dumps(config)
@@ -46,6 +47,7 @@ try:
   print(f"RetroArch Path: {config['retroarch_path']}")
   print(f"PCSX2 Executable Path: {config['pcsx2_exe_path']}")
   print(f"bizhawk Path: {config['bizhawk_path']}")
+  print(f"Duckstation Executable Path: {config['duckstation_exe_path']}")
   print(f"ffmpeg Path: {config['ffmpeg_path']}")
   print("==========================================")
 except:
@@ -64,6 +66,8 @@ if config['pcsx2_exe_path'] != "":
   options += 1
 if config['bizhawk_path'] != "":
   options += 1
+if config['duckstation_exe_path'] != "":
+  options += 1
 if config["sounds_path"] == "" or options == 0:
   print('Startup error: Configuration file has blank settings.  sounds_path and at least one emulator path are required to run (config.cfg).')
   print('NOTE: When typing the path on Windows in your configuration file, use double slashes instead of single')
@@ -78,11 +82,13 @@ if options > 0:
     print("[2] - PCSX2")
   if config["bizhawk_path"] != "":
     print("[3] - bizhawk")
+  if config["duckstation_exe_path"] != "":
+    print("[4] - Duckstation")
   print("[0] - Exit Launcher")
   print("------------------------------------------")
   userchoice = input("Enter option number: ")
-  if userchoice not in ['1', '2', '3', '0']:
-    print('Parameter error: Option number must be 0, 1, 2 or 3.')
+  if userchoice not in ['1', '2', '3', '4', '0']:
+    print('Parameter error: Option number must be 0, 1, 2, 3 or 4.')
     time.sleep(3)
     sys.exit()
   if userchoice == "1":
@@ -103,6 +109,12 @@ if options > 0:
       time.sleep(3)
       sys.exit()
     runchoice = "bizhawk"
+  elif userchoice == "4":
+    if config["duckstation_exe_path"] == "":
+      print('Parameter error: Duckstation exe path is blank')
+      time.sleep(3)
+      sys.exit()
+    runchoice = "duckstation"
   elif userchoice == "0":
     sys.exit()
 #--
@@ -138,6 +150,17 @@ try:
     AudioSegment.probe = os.path.join(config["ffmpeg_path"], "ffprobe.exe")
     x = AudioSegment.from_file(targetsoundfile, format='ogg')
     x.export(os.path.join(config["bizhawk_path"], "overlay", "unlock.wav"), format="wav")
+  elif runchoice == "duckstation":
+    if config["ffmpeg_path"] == "":
+      print('Sound error: ffmpeg path was not provided in configuration and is required for Duckstation')
+      time.sleep(3)
+      sys.exit()
+    if os.path.isfile(os.path.join(os.path.dirname(config["duckstation_exe_path"]), "resources", "sounds", "achievements", "unlock.wav")) == True:
+      os.remove(os.path.join(os.path.dirname(config["duckstation_exe_path"]), "resources", "sounds", "achievements", "unlock.wav"))
+    AudioSegment.converter = os.path.join(config["ffmpeg_path"], "ffmpeg.exe")
+    AudioSegment.probe = os.path.join(config["ffmpeg_path"], "ffprobe.exe")
+    x = AudioSegment.from_file(targetsoundfile, format='ogg')
+    x.export(os.path.join(os.path.dirname(config["duckstation_exe_path"]), "resources", "sounds", "achievements", "unlock.wav"), format="wav")
   print(f"Random target chosen: {os.path.basename(targetsoundfile)}")
   print("Transferring random choice to target option application")
 except:
@@ -157,6 +180,8 @@ try:
     os.startfile(config['pcsx2_exe_path'])
   elif runchoice == "bizhawk":
     os.startfile(os.path.join(config['bizhawk_path'], "EmuHawk.exe"))
+  elif runchoice == "duckstation":
+    os.startfile(config['duckstation_exe_path'])
 except:
   print('Launch error: Unable to access target option application')
   print(traceback.format_exc())
